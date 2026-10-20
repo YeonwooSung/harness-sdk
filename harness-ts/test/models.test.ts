@@ -159,6 +159,11 @@ describe('resolveModel', () => {
     )
   })
 
+  it('keeps Nova 1 on Bedrock without thinking levels', async () => {
+    expect(supportsThinking('bedrock/amazon.nova-pro-v1:0')).toBe(false)
+    await expect(resolve('bedrock/amazon.nova-pro-v1:0', 'high')).rejects.toThrow('not supported by Bedrock model')
+  })
+
   it.each(['openai.gpt-6-astra', 'global.openai.gpt-6-astra', 'us.openai.gpt-6-astra'])(
     'resolves Astra effort for %s',
     async (modelId) => {
